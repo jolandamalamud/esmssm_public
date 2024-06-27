@@ -225,8 +225,8 @@ class EsmssmDataPrep:
         basics = dict()
         basics['mean'] = np.nanmean(data,axis=1)
         basics['variance'] = np.nanvar(data,axis=1)
-        basics['covariance'] = np.cov(data[:,~np.isnan(data[0,:])])
-        basics['RMSSD'] = 1/(T - 1) * np.nansum(data[:,1:]-data[:,:-1],axis=1)
+        basics['covariance'] = np.cov(data)
+        basics['RMSSD'] = np.sqrt(np.mean(np.square(np.diff(data,axis=1)),axis=1))
         autocorr_coeff, bimod_coeff = [], []
         for i in range(ns):
             if basics['variance'][i] != 0:
